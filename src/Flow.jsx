@@ -16,15 +16,18 @@ import {
   onNodesChange,
   onSelectionchange,
 } from "./redux/diagramsStore";
-import { Sidebar } from "./components/Sidebar";
+import { Menubar } from "./components/Menubar/Menubar";
 import { Box } from "@mui/material";
 import { DatabaseNode } from "./components/Diagrams/DatabaseNode/DatabaseNode";
 import { useEffect, useRef, useState } from "react";
 import { store } from "./redux";
 
+// Регистрация диаграм
 const nodeTypes = { database: DatabaseNode };
+
 function FlowT(props) {
   const nodes = useSelector((state) => state.diagrams.nodes);
+
   const edges = useSelector((state) => state.diagrams.edges);
 
   const diagramsDispatch = useDispatch();
@@ -40,50 +43,54 @@ function FlowT(props) {
     cont &&
       setCenterViewport(
         screenToFlowPosition({
-          x: (cont.x + cont.width) / 2,
+          x: (cont.x + cont.width) / 2.5,
           y: cont.height / 2.5,
         })
       );
   }, [x, y, zoom]);
 
   return (
-    <Box
-      style={{ width: window.innerWidth, height: window.innerHeight }}
-      sx={{ display: "flex" }}
-    >
-      <Sidebar centerViewport={centerViewport} />
+    <>
+      <Menubar centerViewport={centerViewport} />
       <Box
-        width={"100%"}
-        style={{ height: "100vh", position: "relative", overflow: "hidden" }}
-        ref={rf}
+        style={{ width: window.innerWidth, height: window.innerHeight }}
+        sx={{ display: "flex" }}
       >
-        <ReactFlow
-          connectionRadius={30}
-          deleteKeyCode={["Delete"]}
-          nodes={nodes}
-          edges={edges}
-          // panActivationKeyCode={"Space"}
-          // panOnDrag={false}
-          onSelectionChange={(e) => {
-            diagramsDispatch(onSelectionchange(e.nodes));
-          }}
-          onNodeDragStart={(e, node, nodes) => {
-            diagramsDispatch(onDragStart(nodes));
-          }}
-          onNodeDragStop={() => {
-            diagramsDispatch(onDragStart([]));
-          }}
-          onNodesChange={(e) => diagramsDispatch(onNodesChange(e))}
-          onEdgesChange={(e) => diagramsDispatch(onEdgesChange(e))}
-          connectionLineType={"Step"}
-          onConnect={(e) => diagramsDispatch(onConnect(e))}
-          nodeTypes={nodeTypes}
-          connectionMode="loose"
-          fitView
-          {...props}
-        />
+        <Box
+          width={"100%"}
+          style={{ height: "100vh", position: "relative", overflow: "hidden" }}
+          ref={rf}
+        >
+          <ReactFlow
+            connectionRadius={30}
+            deleteKeyCode={["Delete"]}
+            nodes={nodes}
+            edges={edges}
+            onSelectionChange={(e) => {
+              diagramsDispatch(onSelectionchange(e.nodes));
+            }}
+            onNodeDragStart={(e, node, nodes) => {
+              diagramsDispatch(onDragStart(nodes));
+            }}
+            onNodeDragStop={() => {
+              diagramsDispatch(onDragStart([]));
+            }}
+            onNodesChange={(e) => {
+              diagramsDispatch(onNodesChange(e));
+            }}
+            onEdgesChange={(e) => diagramsDispatch(onEdgesChange(e))}
+            connectionLineType={"Step"}
+            onConnect={(e) => diagramsDispatch(onConnect(e))}
+            nodeTypes={nodeTypes}
+            connectionMode="loose"
+            selectionMode="partial"
+            fitView
+            onlyRenderVisibleElements
+            {...props}
+          />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 export function Flow() {
@@ -92,6 +99,7 @@ export function Flow() {
       <Provider store={store}>
         <FlowT>
           <Background />
+
           <Controls />
         </FlowT>
       </Provider>

@@ -1,13 +1,14 @@
-export const databaseDiagram = (id, type, x, y) => {
+export const databaseDiagram = (id, x, y) => {
   return {
     id: "node " + id,
-    type: type,
+    type: "database",
     position: { x: x, y: y },
-
+    selected: false,
     data: {
       id: id,
       editing: false,
-      titleBackground: "#b0c1ff",
+      titleBackground: "#1976d2",
+      titleColor: "#fff",
       title: "Title",
       rows: [],
     },

@@ -14,11 +14,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import ConnectIcon from "@mui/icons-material/CompassCalibration";
-
 import { useDispatch, useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
+  addDiagram,
   changeBgColor,
   changeTitle,
   deleteRow,
@@ -28,12 +27,19 @@ import {
 import { DatabaseNodeNewRow } from "./DatabaseNodeNewRow";
 
 import { ColorPicker } from "../../ColorPicker/ColorPicker";
-import { memo, useRef } from "react";
+import { useRef } from "react";
 import { getIdsFromNodeArr } from "../../../functions/nodes";
 import { CondSideHandle, TopHandle } from "./Handles/Handles";
 
-export const DatabaseNode = memo(({ data }) => {
-  const cellPadding = { padding: "3px 16px" };
+const cellPadding = {
+  padding: "3px 16px",
+};
+
+export const DatabaseNode = ({
+  data,
+  positionAbsoluteX: posX,
+  positionAbsoluteY: posY,
+}) => {
   const { editing } = data;
 
   const selected =
@@ -49,21 +55,23 @@ export const DatabaseNode = memo(({ data }) => {
     return [...data.rows].sort((a, b) => a.order - b.order);
   }
 
-  const tst = useSelector((state) => state.diagrams.dragging);
+  const draggingNodes = useSelector((state) => state.diagrams.dragging);
 
-  const dragging = getIdsFromNodeArr(tst).includes(data.id);
+  const dragging = getIdsFromNodeArr(draggingNodes).includes(data.id);
 
   const ref = useRef();
-  const topHandleWidth = ref?.current?.clientWidth;
+  const topHandleWidth = ref.current && ref.current.clientWidth;
 
   return (
     <TableContainer
       ref={ref}
-      sx={{
+      style={{
         backgroundColor: "#fff",
         overflowX: "visible",
       }}
-      className={editing ? "nodrag" : null}
+      className={
+        editing ? "db__flow-bradius-top nodrag" : "db__flow-bradius-top"
+      }
       onDoubleClick={setEditingHandle}
     >
       <div
@@ -73,17 +81,19 @@ export const DatabaseNode = memo(({ data }) => {
           width: topHandleWidth,
         }}
       >
-        <ConnectIcon
-          style={{
-            position: "absolute",
-            zIndex: 9999,
-            fontSize: 10,
-            left: 5,
-            top: 1.5,
-            color: "#b0c1ff",
-          }}
+        <TopHandle
+          onClick={() =>
+            dispatch(
+              addDiagram({
+                type: "database",
+                x: posX,
+                y: posY <= 0 ? posY - 150 : posY - 150,
+              })
+            )
+          }
+          width={topHandleWidth}
+          dragging={dragging}
         />
-        <TopHandle cond={!dragging} />
       </div>
       {/* Menu */}
       {selected && !dragging && (
@@ -108,14 +118,21 @@ export const DatabaseNode = memo(({ data }) => {
       <Table aria-label="simple table">
         <TableHead sx={{ backgroundColor: data.titleBackground }}>
           <TableRow>
-            <TableCell align="center" colSpan={3} scope="row">
+            <TableCell
+              className="db__flow-bradius-top"
+              align="center"
+              colSpan={3}
+              scope="row"
+            >
               {!editing || data.title === " " ? (
-                <Typography variant="h6" gutterBottom>
+                <Typography color={data.titleColor} variant="h6" gutterBottom>
                   {data.title}
                 </Typography>
               ) : (
                 <Input
-                  inputProps={{ min: 0, style: { textAlign: "center" } }}
+                  inputProps={{
+                    style: { textAlign: "center", color: data.titleColor },
+                  }}
                   onChange={(e) =>
                     dispatch(
                       changeTitle({ id: data.id, newTitle: e.target.value })
@@ -127,21 +144,29 @@ export const DatabaseNode = memo(({ data }) => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody style={{ border: "1px solid #e9e9e9" }}>
+        <TableBody>
           <TableRow key={"sub"}>
-            <TableCell style={{ ...cellPadding }} variant="footer">
+            <TableCell
+              className="border-cell-left"
+              style={{ ...cellPadding }}
+              variant="footer"
+            >
               <SubtitlesIcon />
             </TableCell>
             <TableCell style={{ ...cellPadding }} variant="footer">
               <DataArrayIcon />
             </TableCell>
-            <TableCell style={{ ...cellPadding }} variant="footer">
+            <TableCell
+              className="border-cell-right"
+              style={{ ...cellPadding }}
+              variant="footer"
+            >
               <KeyIcon />
             </TableCell>
           </TableRow>
           {sortedRows().map((row) => (
             <TableRow key={row.id}>
-              <TableCell>
+              <TableCell className="border-cell-left">
                 <Stack direction={"row"}>
                   {row.key && (
                     <>
@@ -164,7 +189,7 @@ export const DatabaseNode = memo(({ data }) => {
 
               <TableCell>{row.type}</TableCell>
               {/* Key */}
-              <TableCell>
+              <TableCell className="border-cell-right">
                 <Stack gap={1} direction={"row"}>
                   <span style={{ minWidth: editing ? 60 : 21 }}>{row.key}</span>
                   {editing && (
@@ -204,4 +229,4 @@ export const DatabaseNode = memo(({ data }) => {
       </Table>
     </TableContainer>
   );
-});
+};

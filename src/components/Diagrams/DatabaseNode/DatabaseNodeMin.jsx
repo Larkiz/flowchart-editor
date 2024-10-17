@@ -16,15 +16,17 @@ export const DatabaseNodeMin = ({ sx, onClick }) => {
       sx={{
         backgroundColor: "#fff",
         width: 149,
+        borderRadius: 5,
         ...sx,
       }}
+      className="db__flow-bradius-top db-node-min"
       onClick={onClick}
     >
       <Table>
-        <TableHead sx={{ backgroundColor: "#b0c1ff" }}>
+        <TableHead sx={{ backgroundColor: "#1976d2" }}>
           <TableRow>
             <TableCell
-              sx={{ fontSize: 10 }}
+              sx={{ fontSize: 10, color: "#fff" }}
               align="center"
               colSpan={3}
               scope="row"
@@ -35,22 +37,26 @@ export const DatabaseNodeMin = ({ sx, onClick }) => {
         </TableHead>
         <TableBody style={{ border: "1px solid #e9e9e9" }}>
           <TableRow key={"sub"}>
-            <TableCell variant="footer">
+            <TableCell className="border-cell-left" variant="footer">
               <SubtitlesIcon sx={{ fontSize: 10 }} />
             </TableCell>
             <TableCell variant="footer">
               <DataArrayIcon sx={{ fontSize: 10 }} />
             </TableCell>
-            <TableCell variant="footer">
+            <TableCell className="border-cell-right" variant="footer">
               <KeyIcon sx={{ fontSize: 10 }} />
             </TableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell sx={{ fontSize: 8 }}>name</TableCell>
+            <TableCell className="border-cell-left" sx={{ fontSize: 8 }}>
+              name
+            </TableCell>
 
             <TableCell sx={{ fontSize: 8 }}>type</TableCell>
-            <TableCell sx={{ fontSize: 8 }}>Key</TableCell>
+            <TableCell className="border-cell-right" sx={{ fontSize: 8 }}>
+              Key
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

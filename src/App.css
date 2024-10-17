@@ -17,3 +17,47 @@ body {
 .react-flow__node-database .react-flow__handle:hover {
   background-color: rgb(129 145 203 / 90%);
 }
+.react-flow__handle__add-new {
+  background-color: rgb(129 145 203 / 41%);
+}
+.react-flow__handle__add-new:hover {
+  background-color: rgb(129 145 203 / 90%);
+}
+.react-flow__selection {
+  border-style: solid !important;
+}
+
+.menubar {
+  background-color: #fff !important;
+
+  width: fit-content !important;
+  padding: 10px;
+  top: 15px !important;
+  left: 100px !important;
+  border-radius: 15px;
+}
+.db__flow-bradius-top {
+  border-radius: 15px 15px 0 0 !important;
+}
+.db__flow-bradius-top-left {
+  border-radius: 15px 0 0 0 !important;
+}
+.db__flow-bradius-top-right {
+  border-radius: 0 15px 0 0 !important;
+}
+
+* {
+  border-collapse: separate !important;
+}
+
+.border-cell-right {
+  border-right: 1px solid rgba(224, 224, 224, 1);
+}
+.border-cell-left {
+  border-left: 1px solid rgba(224, 224, 224, 1);
+}
+
+.db-node-min:hover {
+  box-shadow: 0 2px 5px rgb(172, 172, 172);
+  transition: 0.2s;
+}

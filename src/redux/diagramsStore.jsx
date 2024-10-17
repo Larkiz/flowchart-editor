@@ -41,8 +41,9 @@ export const diagramSlice = createSlice({
     },
     addDiagram: (state, { payload }) => {
       const id = state.nodes.length + 1;
-      const { type, x, y } = payload;
-      state.nodes.push(databaseDiagram(id, type, x, y));
+      const { x, y } = payload;
+
+      state.nodes.push(databaseDiagram(id, x, y));
     },
     setEditing: (state, { payload }) => {
       state.nodes.map((i) => {
