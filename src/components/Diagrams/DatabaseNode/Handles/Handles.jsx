@@ -32,12 +32,11 @@ export const TopHandle = ({ onClick, width, dragging }) => {
         className="db__flow-bradius-top-left"
         style={{
           width: width && width / 2,
-          height: "10px",
+          height: "13px",
           borderRadius: 0,
           border: "none",
           position: "relative",
           transform: "translate(-100%, 0)",
-          padding: "1.5px 0",
         }}
         id="top"
         position={"top"}
@@ -51,8 +50,8 @@ export const TopHandle = ({ onClick, width, dragging }) => {
           width: width && width / 2,
           zIndex: 9999,
           fontSize: 10,
-          height: "10px",
-          padding: "1.5px 0px",
+          height: "13px",
+
           top: 0,
           color: "#b0c1ff",
           transform: "translate(100%, 0)",

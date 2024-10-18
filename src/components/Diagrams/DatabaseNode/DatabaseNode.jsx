@@ -66,7 +66,6 @@ export const DatabaseNode = ({
     <TableContainer
       ref={ref}
       style={{
-        backgroundColor: "#fff",
         overflowX: "visible",
       }}
       className={
@@ -78,7 +77,8 @@ export const DatabaseNode = ({
         style={{
           opacity: !dragging ? 1 : 0,
           position: "absolute",
-          width: topHandleWidth,
+
+          width: "100%",
         }}
       >
         <TopHandle
@@ -144,7 +144,7 @@ export const DatabaseNode = ({
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody sx={{ backgroundColor: "#fff" }}>
           <TableRow key={"sub"}>
             <TableCell
               className="border-cell-left"
