@@ -14,11 +14,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
   addDiagram,
-  changeBgColor,
   changeRow,
   changeTitle,
   deleteRow,
@@ -27,12 +26,12 @@ import {
 
 import { DatabaseNodeNewRow } from "./DatabaseNodeNewRow";
 
-import { ColorPicker } from "../../ColorPicker/ColorPicker";
 import { useRef } from "react";
-import { getIdsFromNodeArr } from "../../../functions/nodes";
+
 import { CondSideHandle, TopHandle } from "./Handles/Handles";
 import { SelectTypes } from "./Inputs/SelectType";
 import { SelectKey } from "./Inputs/SelectKey";
+import { ContextMenu } from "../ContextMenu";
 
 const cellPadding = {
   padding: "3px 16px",
@@ -42,11 +41,11 @@ export const DatabaseNode = ({
   data,
   positionAbsoluteX: posX,
   positionAbsoluteY: posY,
+  width,
+  selected,
+  dragging,
 }) => {
   const { editing } = data;
-
-  const selected =
-    useSelector((state) => state.diagrams.selected)[0]?.data.id === data.id;
 
   const dispatch = useDispatch();
 
@@ -57,10 +56,6 @@ export const DatabaseNode = ({
   function sortedRows() {
     return [...data.rows].sort((a, b) => a.order - b.order);
   }
-
-  const draggingNodes = useSelector((state) => state.diagrams.dragging);
-
-  const dragging = getIdsFromNodeArr(draggingNodes).includes(data.id);
 
   const ref = useRef();
   const topHandleWidth = ref.current && ref.current.clientWidth;
@@ -102,8 +97,8 @@ export const DatabaseNode = ({
             dispatch(
               addDiagram({
                 type: "database",
-                x: posX,
-                y: posY <= 0 ? posY - 150 : posY - 150,
+                x: posX + width / 2.8,
+                y: posY <= 0 ? posY - 155 : posY - 155,
               })
             )
           }
@@ -112,24 +107,7 @@ export const DatabaseNode = ({
         />
       </div>
       {/* Menu */}
-      {selected && !dragging && (
-        <div
-          style={{
-            position: "absolute",
-            top: -40,
-            backgroundColor: "#fff",
-            border: "1px solid #c7c7c7",
-            borderRadius: 3,
-          }}
-        >
-          <ColorPicker
-            value={data.titleBackground}
-            onChange={(color) =>
-              dispatch(changeBgColor({ id: data.id, newBg: color }))
-            }
-          />
-        </div>
-      )}
+      <ContextMenu selected={selected} dragging={dragging} data={data} />
 
       <Table>
         <TableHead sx={{ backgroundColor: data.titleBackground }}>
@@ -167,17 +145,17 @@ export const DatabaseNode = ({
               style={{ ...cellPadding }}
               variant="footer"
             >
-              <SubtitlesIcon />
+              <SubtitlesIcon sx={{ fontSize: 17 }} />
             </TableCell>
             <TableCell style={{ ...cellPadding }} variant="footer">
-              <DataArrayIcon />
+              <DataArrayIcon sx={{ fontSize: 17 }} />
             </TableCell>
             <TableCell
               className="border-cell-right"
               style={{ ...cellPadding }}
               variant="footer"
             >
-              <KeyIcon />
+              <KeyIcon sx={{ fontSize: 17 }} />
             </TableCell>
           </TableRow>
           {sortedRows().map((row) => (

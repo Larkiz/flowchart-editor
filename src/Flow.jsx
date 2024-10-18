@@ -18,13 +18,11 @@ import {
 } from "./redux/diagramsStore";
 import { Menubar } from "./components/Menubar/Menubar";
 import { Box } from "@mui/material";
-import { DatabaseNode } from "./components/Diagrams/DatabaseNode/DatabaseNode";
+
 import { useEffect, useRef, useState } from "react";
 import { store } from "./redux";
 import { ToastContainer } from "react-toastify";
-
-// Регистрация диаграм
-const nodeTypes = { database: DatabaseNode };
+import { nodeTypes } from "./FlowNodesInit";
 
 function FlowT(props) {
   const nodes = useSelector((state) => state.diagrams.nodes);

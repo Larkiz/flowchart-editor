@@ -1,51 +1,12 @@
-import {
-  Button,
-  Input,
-  ListSubheader,
-  MenuItem,
-  Select,
-  Stack,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Button, Input, Stack, TableCell, TableRow } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addNewRow } from "../../../redux/diagramsStore";
-import {
-  mostUsedDataType,
-  numberDataType,
-  stringDataType,
-} from "./Inputs/options";
+
 import { toast } from "react-toastify";
 import { SelectTypes } from "./Inputs/SelectType";
 import { SelectKey } from "./Inputs/SelectKey";
-
-const MenuItemCustom = (props) => {
-  const { children, ...rest } = props;
-
-  return (
-    <MenuItem sx={{ paddingLeft: 3 }} {...rest}>
-      {children}
-    </MenuItem>
-  );
-};
-
-const renderDynamicItemCustom = ({ onChange, label, inputValue, ...props }) => {
-  return (
-    <MenuItemCustom {...props}>
-      {label}(
-      <Input
-        inputProps={{ "aria-label": "Without label" }}
-        sx={{ width: 20, height: 10 }}
-        onChange={onChange}
-        value={inputValue}
-        onClick={(e) => e.stopPropagation()}
-      />
-      )
-    </MenuItemCustom>
-  );
-};
+import { addNewRow } from "../../../redux/diagramsStore";
 
 export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
   const [newRow, setNewRow] = useState({ title: "", key: "", type: "" });
@@ -53,11 +14,6 @@ export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
     setNewRow({ ...newRow, ...data });
   }
   const dispatch = useDispatch();
-
-  const [dynamicSelectInput, setSelectInput] = useState({
-    varchar: "",
-    char: "",
-  });
 
   function addNewRowHandle() {
     if (newRow.title && newRow.type) {

@@ -91,7 +91,7 @@ export function BasicMenu() {
           <ListItemIcon>
             <FileDownloadIcon />
           </ListItemIcon>
-          Экспорт
+          Экспорт(JSON)
         </MenuItem>
       </Menu>
     </div>

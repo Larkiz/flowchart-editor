@@ -39,7 +39,7 @@ export function NewFlowPopover({ centerViewport }) {
         }}
       >
         <Box sx={{ p: 2 }}>
-          <Typography variant="h6">Схемы</Typography>
+          <Typography variant="h6">Базы Данных</Typography>
           <Stack direction={"row"} flexWrap={"wrap"}>
             <DatabaseNodeMin
               onClick={() =>

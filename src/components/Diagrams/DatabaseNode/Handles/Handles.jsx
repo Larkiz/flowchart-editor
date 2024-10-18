@@ -3,7 +3,7 @@ import { useState } from "react";
 import { DatabaseNodeMin } from "../DatabaseNodeMin";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import ConnectIcon from "@mui/icons-material/CompassCalibration";
-export const TopHandle = ({ onClick, width, dragging }) => {
+export const TopHandle = ({ onClick, width }) => {
   const [isHover, setHover] = useState(false);
   return (
     <div>

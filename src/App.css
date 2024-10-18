@@ -65,3 +65,8 @@ body {
 .css-1dc80h3-MuiTableCell-root {
   padding: 5px 16px !important;
 }
+
+.rect-flow {
+  padding: 20px;
+  width: auto;
+}

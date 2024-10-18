@@ -17,6 +17,7 @@ export const DatabaseNodeMin = ({ sx, onClick }) => {
         backgroundColor: "#fff",
         width: 149,
         borderRadius: 5,
+        cursor: "pointer",
         ...sx,
       }}
       className="db__flow-bradius-top db-node-min"
