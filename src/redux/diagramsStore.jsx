@@ -6,43 +6,7 @@ import { getIdsFromNodeArr } from "../functions/nodes";
 export const diagramSlice = createSlice({
   name: "diagrams",
   initialState: {
-    nodes: [
-      {
-        id: "node-1",
-        type: "database",
-        position: { x: 0, y: 0 },
-
-        data: {
-          id: 1,
-          title: "students",
-          editing: false,
-          titleBackground: "#1976d2",
-          titleColor: "#fff",
-
-          rows: [
-            { id: 1, title: "id", key: "FK", type: "int", order: 2 },
-            { id: 2, title: "studentId", key: "PK", type: "int", order: 1 },
-            { id: 3, title: "name", key: "", type: "varchar(16)", order: 3 },
-          ],
-        },
-      },
-      {
-        id: "node-2",
-        type: "database",
-        position: { x: 100, y: 50 },
-
-        data: {
-          id: 2,
-          title: "data",
-          editing: false,
-          titleBackground: "#1976d2",
-          titleColor: "#fff",
-          rows: [
-            { id: 1, title: "studentId", key: "FK", type: "int", order: 2 },
-          ],
-        },
-      },
-    ],
+    nodes: [],
     edges: [],
     selected: [],
     dragging: [],
