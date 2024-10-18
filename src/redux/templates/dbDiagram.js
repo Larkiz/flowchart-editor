@@ -4,6 +4,7 @@ export const databaseDiagram = (id, x, y) => {
     type: "database",
     position: { x: x, y: y },
     selected: false,
+    dragging: false,
     data: {
       id: id,
       editing: false,
