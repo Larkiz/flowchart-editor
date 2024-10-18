@@ -12,7 +12,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addNewRow } from "../../../redux/diagramsStore";
-import { mostUsedDataType, numberDataType, stringDataType } from "./options";
+import {
+  mostUsedDataType,
+  numberDataType,
+  stringDataType,
+} from "./Inputs/options";
+import { toast } from "react-toastify";
+import { SelectTypes } from "./Inputs/SelectType";
+import { SelectKey } from "./Inputs/SelectKey";
 
 const MenuItemCustom = (props) => {
   const { children, ...rest } = props;
@@ -52,6 +59,14 @@ export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
     char: "",
   });
 
+  function addNewRowHandle() {
+    if (newRow.title && newRow.type) {
+      dispatch(addNewRow({ id: data.id, row: newRow }));
+    } else {
+      toast.error("Название и тип строки не могут быть пусты");
+    }
+  }
+
   return (
     <>
       <TableRow>
@@ -65,85 +80,22 @@ export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
         </TableCell>
         {/* newType */}
         <TableCell>
-          <Select
+          <SelectTypes
             value={newRow.type}
-            sx={{ height: 30 }}
-            onChange={(e) => newRowHandle({ type: e.target.value })}
-            inputProps={{ "aria-label": "Without label" }}
-            MenuProps={{ style: { maxHeight: 400 } }}
-          >
-            <ListSubheader>Частые</ListSubheader>
-            {renderDynamicItemCustom({
-              label: "varchar",
-              value: "varchar(" + dynamicSelectInput.varchar + ")",
-              inputValue: dynamicSelectInput.varchar,
-              onChange: (e) => {
-                setSelectInput({
-                  ...dynamicSelectInput,
-                  varchar: e.target.value,
-                });
-                newRow.type &&
-                  newRowHandle({
-                    type: "varchar(" + e.target.value + ")",
-                  });
-              },
-            })}
-
-            {mostUsedDataType.map((dt, key) => (
-              <MenuItemCustom key={key} value={dt}>
-                {dt}
-              </MenuItemCustom>
-            ))}
-            <ListSubheader>Числовые</ListSubheader>
-            {numberDataType.map((dt, key) => (
-              <MenuItemCustom key={key} value={dt}>
-                {dt}
-              </MenuItemCustom>
-            ))}
-            <ListSubheader>Строковые</ListSubheader>
-            {renderDynamicItemCustom({
-              label: "char",
-              value: "char(" + dynamicSelectInput.char + ")",
-              inputValue: dynamicSelectInput.char,
-              onChange: (e) => {
-                setSelectInput({
-                  ...dynamicSelectInput,
-                  char: e.target.value,
-                });
-                newRow.type &&
-                  newRowHandle({
-                    type: "char(" + e.target.value + ")",
-                  });
-              },
-            })}
-
-            {stringDataType.map((dt, key) => (
-              <MenuItemCustom key={key} value={dt}>
-                {dt}
-              </MenuItemCustom>
-            ))}
-          </Select>
+            onChange={(type) => newRowHandle({ type: type })}
+          />
         </TableCell>
         {/* newKey */}
         <TableCell>
           <Stack gap={1} alignItems={"center"} direction={"row"}>
-            <Select
+            <SelectKey
               value={newRow.key}
-              sx={{ height: 30, width: 60, fontSize: 10 }}
-              onChange={(e) => newRowHandle({ key: e.target.value })}
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value={""}>Без ключа</MenuItem>
-              <MenuItem value="FK">FK</MenuItem>
-              <MenuItem value="PK">PK</MenuItem>
-            </Select>
+              onChange={(key) => newRowHandle({ key: key })}
+            />
+
             <Button
               variant="contained"
-              onClick={() =>
-                newRow.title &&
-                newRow.type &&
-                dispatch(addNewRow({ id: data.id, row: newRow }))
-              }
+              onClick={addNewRowHandle}
               sx={{ minWidth: 5, padding: 1 }}
             >
               <AddIcon sx={{ fontSize: 13 }} />

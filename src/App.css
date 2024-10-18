@@ -33,7 +33,7 @@ body {
   width: fit-content !important;
   padding: 10px;
   top: 15px !important;
-  left: 100px !important;
+  left: 10vw !important;
   border-radius: 15px;
 }
 .db__flow-bradius-top {
@@ -60,4 +60,8 @@ body {
 .db-node-min:hover {
   box-shadow: 0 2px 5px rgb(172, 172, 172);
   transition: 0.2s;
+}
+
+.css-1dc80h3-MuiTableCell-root {
+  padding: 5px 16px !important;
 }

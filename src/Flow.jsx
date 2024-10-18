@@ -21,6 +21,7 @@ import { Box } from "@mui/material";
 import { DatabaseNode } from "./components/Diagrams/DatabaseNode/DatabaseNode";
 import { useEffect, useRef, useState } from "react";
 import { store } from "./redux";
+import { ToastContainer } from "react-toastify";
 
 // Регистрация диаграм
 const nodeTypes = { database: DatabaseNode };
@@ -90,6 +91,18 @@ function FlowT(props) {
           />
         </Box>
       </Box>
+      <ToastContainer
+        position={"top-right"}
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover
+        draggable
+        theme={"colored"}
+      />
     </>
   );
 }

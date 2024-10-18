@@ -19,6 +19,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
   addDiagram,
   changeBgColor,
+  changeRow,
   changeTitle,
   deleteRow,
   setEditing,
@@ -30,6 +31,8 @@ import { ColorPicker } from "../../ColorPicker/ColorPicker";
 import { useRef } from "react";
 import { getIdsFromNodeArr } from "../../../functions/nodes";
 import { CondSideHandle, TopHandle } from "./Handles/Handles";
+import { SelectTypes } from "./Inputs/SelectType";
+import { SelectKey } from "./Inputs/SelectKey";
 
 const cellPadding = {
   padding: "3px 16px",
@@ -62,6 +65,17 @@ export const DatabaseNode = ({
   const ref = useRef();
   const topHandleWidth = ref.current && ref.current.clientWidth;
 
+  function rowChange(newData, type, rowId) {
+    dispatch(
+      changeRow({
+        id: data.id,
+        rowId: rowId,
+        type: type,
+        data: newData,
+      })
+    );
+  }
+
   return (
     <TableContainer
       ref={ref}
@@ -71,13 +85,15 @@ export const DatabaseNode = ({
       className={
         editing ? "db__flow-bradius-top nodrag" : "db__flow-bradius-top"
       }
-      onDoubleClick={setEditingHandle}
+      onDoubleClick={(e) => {
+        e.target.focus();
+        setEditingHandle();
+      }}
     >
       <div
         style={{
           opacity: !dragging ? 1 : 0,
           position: "absolute",
-
           width: "100%",
         }}
       >
@@ -115,7 +131,7 @@ export const DatabaseNode = ({
         </div>
       )}
 
-      <Table aria-label="simple table">
+      <Table>
         <TableHead sx={{ backgroundColor: data.titleBackground }}>
           <TableRow>
             <TableCell
@@ -124,7 +140,7 @@ export const DatabaseNode = ({
               colSpan={3}
               scope="row"
             >
-              {!editing || data.title === " " ? (
+              {!editing ? (
                 <Typography color={data.titleColor} variant="h6" gutterBottom>
                   {data.title}
                 </Typography>
@@ -182,16 +198,45 @@ export const DatabaseNode = ({
                       />
                     </>
                   )}
-
-                  {row.title}
+                  {!editing ? (
+                    row.title
+                  ) : (
+                    <Input
+                      onChange={(e) =>
+                        rowChange(e.target.value, "title", row.id)
+                      }
+                      value={row.title}
+                      sx={{ width: 70, height: 30, fontSize: 14 }}
+                    />
+                  )}
                 </Stack>
               </TableCell>
 
-              <TableCell>{row.type}</TableCell>
+              <TableCell>
+                {!editing ? (
+                  row.type
+                ) : (
+                  <SelectTypes
+                    value={row.type}
+                    onChange={(type) => rowChange(type, "type", row.id)}
+                  />
+                )}
+              </TableCell>
               {/* Key */}
               <TableCell className="border-cell-right">
                 <Stack gap={1} direction={"row"}>
-                  <span style={{ minWidth: editing ? 60 : 21 }}>{row.key}</span>
+                  {!editing ? (
+                    <span style={{ minWidth: editing ? 60 : 21 }}>
+                      {row.key}
+                    </span>
+                  ) : (
+                    <SelectKey
+                      value={row.key}
+                      required={row.key ? true : false}
+                      onChange={(key) => rowChange(key, "key", row.id)}
+                    />
+                  )}
+
                   {editing && (
                     <Button
                       variant="contained"

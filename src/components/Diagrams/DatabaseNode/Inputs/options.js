@@ -1,4 +1,4 @@
-export const numberDataType = ["bigint", "smallint"];
+export const numberDataType = ["bigint", "smallint", "decimal", "float"];
 export const dateDataType = ["time", "timestamp", "interval", "year"];
 export const stringDataType = ["text"];
 
@@ -9,5 +9,5 @@ export const mostUsedDataType = [
   "date",
   "datetime",
 ];
-export const otherDataType = ["json", "uuid", "money"];
 export const arraysDataType = ["string[]", "int[]", "json[]"];
+export const otherDataType = ["json", "uuid", "money"];
