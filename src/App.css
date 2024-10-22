@@ -17,11 +17,17 @@ body {
 .react-flow__node-database .react-flow__handle:hover {
   background-color: rgb(129 145 203 / 90%);
 }
+.react-flow__handle {
+  background-color: rgb(129 145 203 / 41%) !important;
+}
+.react-flow__handle:hover {
+  background-color: rgb(129 145 203 / 90%) !important;
+}
 .react-flow__handle__add-new {
-  background-color: rgb(129 145 203 / 41%);
+  background-color: rgb(129 145 203 / 41%) !important;
 }
 .react-flow__handle__add-new:hover {
-  background-color: rgb(129 145 203 / 90%);
+  background-color: rgb(129 145 203 / 90%) !important;
 }
 .react-flow__selection {
   border-style: solid !important;
@@ -57,9 +63,10 @@ body {
   border-left: 1px solid rgba(224, 224, 224, 1);
 }
 
-.db-node-min:hover {
-  box-shadow: 0 2px 5px rgb(172, 172, 172);
-  transition: 0.2s;
+.node-min:hover {
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.61));
+
+  transition: 0.2s ease-in;
 }
 
 .css-1dc80h3-MuiTableCell-root {
@@ -67,6 +74,23 @@ body {
 }
 
 .rect-flow {
-  padding: 20px;
+  padding: 15px 20px;
   width: auto;
+}
+
+.rect-flow span,
+.rect-flow .MuiInputBase-root {
+  position: relative;
+  z-index: 999;
+}
+
+.rect-flow-node::before {
+  position: absolute;
+  left: 0;
+  z-index: 998;
+  content: " ";
+  top: 0;
+
+  width: 100%;
+  height: 100%;
 }

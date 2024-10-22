@@ -1,12 +1,16 @@
-import { combineReducers, createSlice } from "@reduxjs/toolkit";
-import { addEdge, applyEdgeChanges, applyNodeChanges } from "@xyflow/react";
+import { createSlice } from "@reduxjs/toolkit";
+
 import { databaseDiagram } from "./templates/dbDiagram";
-import { getIdsFromNodeArr } from "../functions/nodes";
+
 import { dbNodeReducers } from "./reducers/dbNodeReducers";
 import { reactFlowBasicReducers } from "./reducers/reactFlowBasicReducers";
 import { nodeParamsReducer } from "./reducers/nodeParamsReducers";
+import { rectDiagram } from "./templates/rectDiagram";
 
-const reducers = combineReducers;
+const flowTypes = {
+  database: databaseDiagram,
+  rect: rectDiagram,
+};
 
 export const diagramSlice = createSlice({
   name: "diagrams",
@@ -40,7 +44,9 @@ export const diagramSlice = createSlice({
       const id = state.nodes.length + 1;
       const { x, y } = payload;
 
-      state.nodes.push(databaseDiagram(id, x, y));
+      const add = flowTypes[payload.type];
+
+      state.nodes.push(add(id, x, y, payload));
     },
     setEditing: (state, { payload }) => {
       state.nodes.map((i) => {

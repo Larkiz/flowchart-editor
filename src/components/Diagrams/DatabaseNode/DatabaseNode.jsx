@@ -102,15 +102,23 @@ export const DatabaseNode = ({
               })
             )
           }
+          editing={editing}
           width={topHandleWidth}
           dragging={dragging}
         />
       </div>
       {/* Menu */}
-      <ContextMenu selected={selected} dragging={dragging} data={data} />
+      <ContextMenu
+        editing={editing}
+        onSave={setEditingHandle}
+        selected={selected}
+        dragging={dragging}
+        data={data}
+      />
 
       <Table>
         <TableHead sx={{ backgroundColor: data.titleBackground }}>
+          {/* Title */}
           <TableRow>
             <TableCell
               className="db__flow-bradius-top"
@@ -138,6 +146,7 @@ export const DatabaseNode = ({
             </TableCell>
           </TableRow>
         </TableHead>
+        {/* HelperHeader */}
         <TableBody sx={{ backgroundColor: "#fff" }}>
           <TableRow key={"sub"}>
             <TableCell
@@ -158,6 +167,7 @@ export const DatabaseNode = ({
               <KeyIcon sx={{ fontSize: 17 }} />
             </TableCell>
           </TableRow>
+          {/* Rows */}
           {sortedRows().map((row) => (
             <TableRow key={row.id}>
               <TableCell className="border-cell-left">
@@ -176,6 +186,7 @@ export const DatabaseNode = ({
                       />
                     </>
                   )}
+                  {/* RowTitle */}
                   {!editing ? (
                     row.title
                   ) : (
@@ -190,6 +201,7 @@ export const DatabaseNode = ({
                 </Stack>
               </TableCell>
 
+              {/* Types */}
               <TableCell>
                 {!editing ? (
                   row.type
@@ -242,12 +254,7 @@ export const DatabaseNode = ({
               </TableCell>
             </TableRow>
           ))}
-          {editing && (
-            <DatabaseNodeNewRow
-              setEditingHandle={setEditingHandle}
-              data={data}
-            />
-          )}
+          {editing && <DatabaseNodeNewRow data={data} />}
         </TableBody>
       </Table>
     </TableContainer>

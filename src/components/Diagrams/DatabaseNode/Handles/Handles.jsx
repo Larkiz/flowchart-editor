@@ -3,7 +3,8 @@ import { useState } from "react";
 import { DatabaseNodeMin } from "../DatabaseNodeMin";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import ConnectIcon from "@mui/icons-material/CompassCalibration";
-export const TopHandle = ({ onClick, width }) => {
+import { Stack } from "@mui/material";
+export const TopHandle = ({ onClick, width, editing }) => {
   const [isHover, setHover] = useState(false);
   return (
     <div>
@@ -18,62 +19,70 @@ export const TopHandle = ({ onClick, width }) => {
           }}
         />
       )}
-      <ConnectIcon
-        style={{
-          position: "absolute",
-          zIndex: 9999,
-          fontSize: 10,
-          left: 15,
-          top: 1.5,
-          color: "#b0c1ff",
-        }}
-      />
-      <Handle
-        className="db__flow-bradius-top-left"
-        style={{
-          width: width && width / 2,
-          height: "13px",
-          borderRadius: 0,
-          border: "none",
-          position: "relative",
-          transform: "translate(-100%, 0)",
-        }}
-        id="top"
-        position={"top"}
-        type="source"
-        width={width}
-      />
-      <div
-        className="react-flow__handle__add-new db__flow-bradius-top-right"
-        style={{
-          position: "absolute",
-          width: width && width / 2,
-          zIndex: 9999,
-          fontSize: 10,
-          height: "13px",
-
-          top: 0,
-          color: "#b0c1ff",
-          transform: "translate(100%, 0)",
-        }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-      >
-        <AddchartIcon
+      <Stack alignItems={"center"} direction={"row"}>
+        <div
           style={{
-            position: "absolute",
+            position: "relative",
+          }}
+        >
+          <ConnectIcon
+            style={{
+              position: "absolute",
+              zIndex: 9999,
+              fontSize: 10,
+              left: 15,
+              top: 1.5,
+              color: "#b0c1ff",
+            }}
+          />
+          <Handle
+            className="db__flow-bradius-top-left"
+            style={{
+              width: width && width / 2,
+              height: "13px",
+              borderRadius: 0,
+              position: "relative",
+              left: !editing ? 37.5 : 77.5,
+
+              top: 6.5,
+              border: "none",
+            }}
+            id="top"
+            position={"top"}
+            type="source"
+            width={width}
+          />
+        </div>
+        <div
+          className="react-flow__handle__add-new db__flow-bradius-top-right"
+          style={{
+            position: "relative",
+            width: width && width / 2,
             zIndex: 9999,
             fontSize: 10,
-            right: 15,
-            top: 1.5,
+            height: "13px",
+            top: 0.3,
             color: "#b0c1ff",
           }}
-        />
-      </div>
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+        >
+          <AddchartIcon
+            style={{
+              position: "absolute",
+              zIndex: 9999,
+              fontSize: 10,
+              right: 15,
+              top: 1.5,
+              color: "#b0c1ff",
+            }}
+          />
+        </div>
+      </Stack>
     </div>
   );
 };

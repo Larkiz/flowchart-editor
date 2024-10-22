@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-export const DatabaseNodeMin = ({ sx, onClick }) => {
+export const DatabaseNodeMin = ({ sx }) => {
   return (
     <TableContainer
       sx={{
@@ -21,7 +21,6 @@ export const DatabaseNodeMin = ({ sx, onClick }) => {
         ...sx,
       }}
       className="db__flow-bradius-top db-node-min"
-      onClick={onClick}
     >
       <Table>
         <TableHead sx={{ backgroundColor: "#1976d2" }}>

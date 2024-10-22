@@ -8,7 +8,7 @@ import { SelectTypes } from "./Inputs/SelectType";
 import { SelectKey } from "./Inputs/SelectKey";
 import { addNewRow } from "../../../redux/diagramsStore";
 
-export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
+export const DatabaseNodeNewRow = ({ data }) => {
   const [newRow, setNewRow] = useState({ title: "", key: "", type: "" });
   function newRowHandle(data) {
     setNewRow({ ...newRow, ...data });
@@ -59,13 +59,7 @@ export const DatabaseNodeNewRow = ({ data, setEditingHandle }) => {
           </Stack>
         </TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell colSpan={3}>
-          <Button variant="contained" onClick={setEditingHandle} fullWidth>
-            Сохранить
-          </Button>
-        </TableCell>
-      </TableRow>
+      <TableRow></TableRow>
     </>
   );
 };
