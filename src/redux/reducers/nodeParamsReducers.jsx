@@ -19,4 +19,12 @@ export const nodeParamsReducer = {
       return node;
     });
   },
+  edgeLabelEdit: (state, { payload }) => {
+    state.edges.map((edge) => {
+      if (edge.id === payload.id) {
+        edge.label = payload.label;
+      }
+      return edge;
+    });
+  },
 };

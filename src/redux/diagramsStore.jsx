@@ -6,10 +6,12 @@ import { dbNodeReducers } from "./reducers/dbNodeReducers";
 import { reactFlowBasicReducers } from "./reducers/reactFlowBasicReducers";
 import { nodeParamsReducer } from "./reducers/nodeParamsReducers";
 import { rectDiagram } from "./templates/rectDiagram";
+import { circleDiagram } from "./templates/circeDiagram";
 
 const flowTypes = {
   database: databaseDiagram,
   rect: rectDiagram,
+  circle: circleDiagram,
 };
 
 export const diagramSlice = createSlice({
@@ -18,7 +20,7 @@ export const diagramSlice = createSlice({
     nodes: [
       {
         id: "node-1",
-        type: "rectNode",
+        type: "circleNode",
         position: { x: 0, y: 0 },
         selected: false,
         data: {
@@ -57,6 +59,11 @@ export const diagramSlice = createSlice({
         return i;
       });
     },
+    deleteNode: (state, { payload }) => {
+      state.nodes = state.nodes.filter((i) =>
+        i.data.id === payload.id ? false : true
+      );
+    },
     ...nodeParamsReducer,
     ...reactFlowBasicReducers,
     ...dbNodeReducers,
@@ -72,10 +79,12 @@ export const {
   onConnect,
   onDragStart,
   onSelectionchange,
+  onEdgeLabelStartEdit,
 } = diagramSlice.actions;
 
 // nodeParams
-export const { changeTitle, changeBgColor } = diagramSlice.actions;
+export const { changeTitle, changeBgColor, deleteNode, edgeLabelEdit } =
+  diagramSlice.actions;
 
 // dbNode
 export const { addNewRow, deleteRow, changeRow } = diagramSlice.actions;
