@@ -17,21 +17,7 @@ const flowTypes = {
 export const diagramSlice = createSlice({
   name: "diagrams",
   initialState: {
-    nodes: [
-      {
-        id: "node-1",
-        type: "circleNode",
-        position: { x: 0, y: 0 },
-        selected: false,
-        data: {
-          id: 1,
-          title: "students",
-          editing: false,
-          titleBackground: "#1976d2",
-          titleColor: "#fff",
-        },
-      },
-    ],
+    nodes: [],
     edges: [],
     selected: [],
     dragging: [],
