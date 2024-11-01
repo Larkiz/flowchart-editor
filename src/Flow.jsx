@@ -12,6 +12,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import {
   onConnect,
   onDragStart,
+  onEdgeLabelStartEdit,
   onEdgesChange,
   onNodesChange,
   onSelectionchange,
@@ -22,12 +23,15 @@ import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { store } from "./redux";
 import { ToastContainer } from "react-toastify";
-import { nodeTypes } from "./FlowNodesInit";
+import { edgeTypes, nodeTypes } from "./FlowNodesInit";
+import { SpeedDialCustom } from "./components/SpeedDial/SpeedDial";
 
 function FlowT(props) {
   const nodes = useSelector((state) => state.diagrams.nodes);
 
   const edges = useSelector((state) => state.diagrams.edges);
+
+  const { edgeType } = useSelector((state) => state.options);
 
   const diagramsDispatch = useDispatch();
 
@@ -51,6 +55,8 @@ function FlowT(props) {
   return (
     <>
       <Menubar centerViewport={centerViewport} />
+      <SpeedDialCustom />
+
       <Box
         style={{ width: window.innerWidth, height: window.innerHeight }}
         sx={{ display: "flex" }}
@@ -77,10 +83,18 @@ function FlowT(props) {
             onNodesChange={(e) => {
               diagramsDispatch(onNodesChange(e));
             }}
-            onEdgesChange={(e) => diagramsDispatch(onEdgesChange(e))}
+            onEdgesChange={(e) => {
+              diagramsDispatch(onEdgesChange(e));
+            }}
             connectionLineType={"Step"}
-            onConnect={(e) => diagramsDispatch(onConnect(e))}
+            onConnect={(event) =>
+              diagramsDispatch(onConnect({ event, edgeType }))
+            }
+            onEdgeDoubleClick={(e, edge) => {
+              diagramsDispatch(onEdgeLabelStartEdit(edge.id));
+            }}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             connectionMode="loose"
             selectionMode="partial"
             fitView
