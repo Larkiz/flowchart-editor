@@ -5,6 +5,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { importDataJson } from "../../redux/diagramsStore";
+import { useTranslation } from "react-i18next";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -64,6 +65,7 @@ export function BasicMenu() {
       };
     }
   };
+  const { t } = useTranslation();
   return (
     <div>
       <Button id="basic-button" onClick={handleClick} variant="contained">
@@ -79,7 +81,7 @@ export function BasicMenu() {
           <ListItemIcon>
             <FileUploadIcon />
           </ListItemIcon>
-          Импорт
+          {t("import")}
           <VisuallyHiddenInput
             type="file"
             accept=".json"
@@ -91,7 +93,7 @@ export function BasicMenu() {
           <ListItemIcon>
             <FileDownloadIcon />
           </ListItemIcon>
-          Экспорт(JSON)
+          {t("export")}
         </MenuItem>
       </Menu>
     </div>
