@@ -1,10 +1,20 @@
-import { Box, Input } from "@mui/material";
-import { ContextMenu } from "../ContextMenu";
+import { Box, Input, Typography } from "@mui/material";
+
 import { useDispatch } from "react-redux";
-import { changeTitle, setEditing } from "../../../redux/diagramsStore";
-import { Handle } from "@xyflow/react";
+
+import { Handle, NodeResizer } from "@xyflow/react";
+import { ContextMenu } from "../../ContextMenu";
+import { changeTitle, setEditing } from "../../../../redux/diagramsStore";
 
 const handleWidth = { width: 7, height: 7 };
+
+const handles = ["top", "bottom", "left", "right"];
+const handleStyle = {
+  top: { top: -1 },
+  bottom: { bottom: -1 },
+  left: { left: -1 },
+  right: { right: -1 },
+};
 
 export const RectNode = ({ selected, dragging, data }) => {
   const { rounded = false, skewed = false, editing } = data;
@@ -36,33 +46,27 @@ export const RectNode = ({ selected, dragging, data }) => {
       }
       onDoubleClick={setEditingHandle}
     >
-      <Handle
-        style={{
-          left: -1,
-          ...handleWidth,
-        }}
-        id={"left-" + data.id}
-        type="source"
-        position={"left"}
+      <NodeResizer
+        color="rgb(98 190 255)"
+        isVisible={selected}
+        minWidth={100}
+        minHeight={30}
       />
-      <Handle
-        id={"top-" + data.id}
-        style={{ top: -1, ...handleWidth }}
-        type="source"
-        position={"top"}
-      />
-      <Handle
-        id={"bottom-" + data.id}
-        style={{ bottom: -1, ...handleWidth }}
-        type="source"
-        position={"bottom"}
-      />
-      <Handle
-        id={"right-" + data.id}
-        style={{ right: -1, ...handleWidth }}
-        type="source"
-        position={"right"}
-      />
+
+      {handles.map((pos) => {
+        const id = pos + "-" + data.id;
+
+        return (
+          <Handle
+            key={pos}
+            style={{ ...handleStyle[pos], ...handleWidth, border: 0 }}
+            id={id}
+            type="source"
+            position={pos}
+          />
+        );
+      })}
+
       <ContextMenu
         editing={editing}
         selected={selected}
@@ -70,11 +74,14 @@ export const RectNode = ({ selected, dragging, data }) => {
         data={data}
         onSave={setEditingHandle}
       />
+
       {!editing ? (
-        <span>{data.title}</span>
+        <Typography className="rect-flow-title" component={"pre"}>
+          {data.title}
+        </Typography>
       ) : (
         <Input
-          color="primary"
+          className="rect-flow-title"
           onChange={(e) => rowChange(e.target.value, "title")}
           value={data.title}
           sx={{
@@ -82,6 +89,7 @@ export const RectNode = ({ selected, dragging, data }) => {
             height: 30,
             fontSize: 14,
           }}
+          multiline
           inputProps={{
             style: { textAlign: "center", color: data.titleColor },
           }}

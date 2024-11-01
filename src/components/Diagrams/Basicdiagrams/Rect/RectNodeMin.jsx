@@ -15,7 +15,7 @@ export const RectNodeMin = ({ rounded = false, skewed = false }) => {
         },
         ":hover": {
           filter: "drop-shadow(0 3px 2px rgba(0, 0, 0, 0.61))",
-          transition: "0.2s",
+          transition: "0.1s",
         },
       }
     : { borderRadius: rounded ? 50 : null, backgroundColor: "#1976d2" };
@@ -38,7 +38,7 @@ export const RectNodeMin = ({ rounded = false, skewed = false }) => {
       }}
       className="rect-flow "
     >
-      <span>Title</span>
+      <span className="rect-flow-title">Title</span>
     </Box>
   );
 };

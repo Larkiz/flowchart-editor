@@ -1,7 +1,12 @@
 import { useDispatch } from "react-redux";
 import { ColorPicker } from "../ColorPicker/ColorPicker";
-import { changeBgColor } from "../../redux/diagramsStore";
+import { changeBgColor, deleteNode } from "../../redux/diagramsStore";
 import { Button, Stack } from "@mui/material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
+
+const btnStyle = { height: 25, minWidth: 0, width: 25 };
 
 export const ContextMenu = ({ selected, dragging, data, editing, onSave }) => {
   const dispatch = useDispatch();
@@ -19,23 +24,34 @@ export const ContextMenu = ({ selected, dragging, data, editing, onSave }) => {
           padding: 5,
         }}
       >
-        <Stack alignItems={"center"} direction={"row"}>
+        <Stack alignItems={"center"} spacing={2} direction={"row"}>
           <ColorPicker
             value={data.titleBackground}
             onChange={(color) =>
               dispatch(changeBgColor({ id: data.id, newBg: color }))
             }
           />
+
           {editing && (
             <Button
-              sx={{ height: 30, fontSize: 10 }}
+              sx={{
+                ...btnStyle,
+
+                marginLeft: "0px!important",
+              }}
               variant="contained"
-              fullWidth
               onClick={onSave}
             >
-              Сохранить
+              <SaveIcon sx={{ width: 17 }} />
             </Button>
           )}
+          <Button
+            onClick={() => dispatch(deleteNode({ id: data.id }))}
+            sx={btnStyle}
+            variant="contained"
+          >
+            <DeleteIcon sx={{ width: 17 }} />
+          </Button>
         </Stack>
       </div>
     )

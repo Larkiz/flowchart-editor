@@ -7,7 +7,7 @@ export const SelectKey = ({ value, onChange, required = false }) => {
       sx={{ height: 30, width: 60, fontSize: 10 }}
       onChange={(e) => onChange(e.target.value)}
     >
-      {!required && <MenuItem value={""}>Без ключа</MenuItem>}
+      {!required && <MenuItem value={""}>...</MenuItem>}
       <MenuItem value="FK">FK</MenuItem>
       <MenuItem value="PK">PK</MenuItem>
     </Select>

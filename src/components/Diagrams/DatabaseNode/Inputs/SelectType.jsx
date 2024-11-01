@@ -1,10 +1,4 @@
-import {
-  Input,
-  ListSubheader,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Input, ListSubheader, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
   arraysDataType,
@@ -14,6 +8,7 @@ import {
   otherDataType,
   stringDataType,
 } from "./options";
+import { useTranslation } from "react-i18next";
 const MenuItemCustom = (props) => {
   const { children, ...rest } = props;
 
@@ -55,7 +50,7 @@ export const SelectTypes = ({ value, onChange }) => {
       setSelectInput(tst);
     }
   }, []);
-
+  const { t } = useTranslation();
   return (
     <Select
       value={value}
@@ -64,7 +59,7 @@ export const SelectTypes = ({ value, onChange }) => {
       inputProps={{ "aria-label": "Without label" }}
       MenuProps={{ style: { maxHeight: 400 } }}
     >
-      <ListSubheader>Частые</ListSubheader>
+      <ListSubheader>{t("mostUsedType")}</ListSubheader>
       {renderDynamicItemCustom({
         label: "varchar",
         value: "varchar(" + dynamicSelectInput.varchar + ")",
@@ -83,19 +78,19 @@ export const SelectTypes = ({ value, onChange }) => {
           {dt}
         </MenuItemCustom>
       ))}
-      <ListSubheader>Числовые</ListSubheader>
+      <ListSubheader>{t("numericType")}</ListSubheader>
       {numberDataType.map((dt, key) => (
         <MenuItemCustom key={key} value={dt}>
           {dt}
         </MenuItemCustom>
       ))}
-      <ListSubheader>Дата и время</ListSubheader>
+      <ListSubheader>{t("dateAndTimeType")}</ListSubheader>
       {dateDataType.map((dt, key) => (
         <MenuItemCustom key={key} value={dt}>
           {dt}
         </MenuItemCustom>
       ))}
-      <ListSubheader>Строковые</ListSubheader>
+      <ListSubheader>{t("stringType")}</ListSubheader>
       {renderDynamicItemCustom({
         label: "char",
         value: "char(" + dynamicSelectInput.char + ")",
@@ -114,13 +109,13 @@ export const SelectTypes = ({ value, onChange }) => {
           {dt}
         </MenuItemCustom>
       ))}
-      <ListSubheader>Массивы</ListSubheader>
+      <ListSubheader>{t("arraysType")}</ListSubheader>
       {arraysDataType.map((dt, key) => (
         <MenuItemCustom key={key} value={dt}>
           {dt}
         </MenuItemCustom>
       ))}
-      <ListSubheader>Другое</ListSubheader>
+      <ListSubheader>{t("otherType")}</ListSubheader>
       {otherDataType.map((dt, key) => (
         <MenuItemCustom key={key} value={dt}>
           {dt}
