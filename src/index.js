@@ -11,10 +11,16 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import "react-toastify/dist/ReactToastify.css";
+import { I18nextProvider } from "react-i18next";
+
+import i18n from "./localization/i18next";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Flow />
+    <I18nextProvider i18n={i18n} defaultNS={"translation"}>
+      <Flow />
+    </I18nextProvider>
   </React.StrictMode>
 );
 
