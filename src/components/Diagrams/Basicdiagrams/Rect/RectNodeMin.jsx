@@ -5,12 +5,12 @@ export const RectNodeMin = ({ rounded = false, skewed = false }) => {
     ? {
         "::before": {
           backgroundColor: "#1976d2",
-          transform: skewed ? "skewX(-10deg) translate(-42%,-25%)" : null,
+          transform: skewed ? "skewX(-10deg) translate(-15%,15%)" : null,
           width: 149,
           height: 50,
           zIndex: 999,
-          position: "absolute",
-
+          position: "relative",
+          display: "block",
           content: '" "',
         },
         ":hover": {
@@ -34,6 +34,10 @@ export const RectNodeMin = ({ rounded = false, skewed = false }) => {
         textAlign: "center",
 
         cursor: "pointer",
+        span: {
+          position: "relative",
+          top: skewed ? -30 : null,
+        },
         ...sx,
       }}
       className="rect-flow "

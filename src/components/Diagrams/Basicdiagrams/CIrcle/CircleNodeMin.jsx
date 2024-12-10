@@ -3,10 +3,10 @@ import { Box, Typography } from "@mui/material";
 export const CircleNodeMin = () => {
   const titleSx = {
     color: "#fff",
-    position: "absolute",
-    zIndex: 999,
 
-    transform: "translate(90%,100%)",
+    zIndex: 999,
+    position: "relative",
+    top: 25,
   };
   return (
     <Box
