@@ -8,6 +8,7 @@ import AddchartIcon from "@mui/icons-material/Addchart";
 import { RectNodeMin } from "../Diagrams/Basicdiagrams/Rect/RectNodeMin";
 import { CircleNodeMin } from "../Diagrams/Basicdiagrams/CIrcle/CircleNodeMin";
 import { useTranslation } from "react-i18next";
+import { DiamondNodeMin } from "../Diagrams/Basicdiagrams/Diamond/DiamondNodeMin";
 
 export function NewFlowPopover({ centerViewport }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -110,6 +111,21 @@ export function NewFlowPopover({ centerViewport }) {
               }
             >
               <CircleNodeMin />
+            </Box>
+            <Box
+              alignSelf={"center"}
+              sx={{ display: "flex", justifyContent: "center", width: 150 }}
+              onClick={() =>
+                dispatch(
+                  addDiagram({
+                    type: "diamond",
+                    x: centerViewport.x,
+                    y: centerViewport.y,
+                  })
+                )
+              }
+            >
+              <DiamondNodeMin />
             </Box>
           </Stack>
           <Typography variant="h6">{t("dbFlow")}</Typography>

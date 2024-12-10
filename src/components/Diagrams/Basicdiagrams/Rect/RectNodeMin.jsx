@@ -18,7 +18,7 @@ export const RectNodeMin = ({ rounded = false, skewed = false }) => {
           transition: "0.1s",
         },
       }
-    : { borderRadius: rounded ? 50 : null, backgroundColor: "#1976d2" };
+    : { borderRadius: rounded ? 3 : null, backgroundColor: "#1976d2" };
   return (
     <Box
       sx={{
