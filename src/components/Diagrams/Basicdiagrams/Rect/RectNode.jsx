@@ -76,7 +76,18 @@ export const RectNode = ({ selected, dragging, data }) => {
       />
 
       {!editing ? (
-        <Typography className="rect-flow-title" component={"pre"}>
+        <Typography
+          sx={{
+            width: "100%",
+
+            fontSize: 14,
+            whiteSpace: "break-spaces",
+            wordBreak: "break-word",
+            pointerEvents: "none",
+          }}
+          className="rect-flow-title"
+          component={"pre"}
+        >
           {data.title}
         </Typography>
       ) : (
@@ -85,9 +96,11 @@ export const RectNode = ({ selected, dragging, data }) => {
           onChange={(e) => rowChange(e.target.value, "title")}
           value={data.title}
           sx={{
-            width: 70,
-            height: 30,
+            width: "100%",
+
             fontSize: 14,
+            whiteSpace: "break-spaces",
+            wordBreak: "break-word",
           }}
           multiline
           inputProps={{

@@ -109,7 +109,15 @@ export const DiamondNode = ({ selected, dragging, data }) => {
       />
       {!editing ? (
         <Typography
-          sx={{ translate: "-55% -55%" }}
+          sx={{
+            maxWidth: 80,
+            translate: "-25% -55%",
+            fontSize: 14,
+
+            whiteSpace: "break-spaces",
+
+            pointerEvents: "none",
+          }}
           className="rect-flow-title"
           component={"pre"}
         >
@@ -121,9 +129,10 @@ export const DiamondNode = ({ selected, dragging, data }) => {
           onChange={(e) => rowChange(e.target.value, "title")}
           value={data.title}
           sx={{
-            width: 70,
+            width: 80,
             height: 30,
             fontSize: 14,
+            translate: "-25% -55%",
           }}
           multiline
           inputProps={{
